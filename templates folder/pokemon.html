@@ -9,25 +9,27 @@
     <div class="container">
       <h1>{{ pokemon.name }} Details</h1>
       <div class="pokemon-detail">
-        <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}" />
+        <img src="{{ pokemon.image }}" alt="Image of {{ pokemon.name }}" />
         <p><strong>ID:</strong> {{ pokemon.id }}</p>
         <p><strong>Types:</strong> {{ pokemon.types | join(', ') }}</p>
         <p><strong>Height:</strong> {{ pokemon.height }}</p>
         <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
       </div>
-      <!-- Chart container -->
+
+      <!-- Chart Container -->
       <div class="pokemon-stats">
         <canvas id="statsChart"></canvas>
       </div>
+
       <p><a href="{{ url_for('index') }}">Back to all Pokémon</a></p>
     </div>
 
-    <!-- Include Chart.js from a CDN -->
+    <!-- Include Chart.js from CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-      // Convert Python lists to JavaScript arrays using Jinja's tojson filter
-      const statNames = {{ pokemon.stat_names | tojson }};
-      const statValues = {{ pokemon.stat_values | tojson }};
+      // Parse the JSON strings into JavaScript arrays
+      const statNames = JSON.parse('{{ stat_names_str | tojson }}');
+      const statValues = JSON.parse('{{ stat_values_str | tojson }}');
 
       // Create a bar chart to display the Pokémon's base stats
       const ctx = document.getElementById('statsChart').getContext('2d');
