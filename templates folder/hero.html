@@ -2,26 +2,26 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>{{ pokemon.name }} Details</title>
+    <title>{{ hero.name }} Details</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   </head>
   <body>
     <div class="container">
-      <h1>{{ pokemon.name }} Details</h1>
-      <div class="pokemon-detail">
-        <img src="{{ pokemon.image }}" alt="Image of {{ pokemon.name }}" />
-        <p><strong>ID:</strong> {{ pokemon.id }}</p>
-        <p><strong>Types:</strong> {{ pokemon.types | join(', ') }}</p>
-        <p><strong>Height:</strong> {{ pokemon.height }}</p>
-        <p><strong>Weight:</strong> {{ pokemon.weight }}</p>
+      <h1>{{ hero.name }} Details</h1>
+      <div class="hero-detail">
+        <img src="{{ hero.image }}" alt="Image of {{ hero.name }}" />
+        <p><strong>ID:</strong> {{ hero.id }}</p>
+        <p><strong>Types:</strong> {{ hero.types | join(', ') }}</p>
+        <p><strong>Height:</strong> {{ hero.height }}</p>
+        <p><strong>Weight:</strong> {{ hero.weight }}</p>
       </div>
 
       <!-- Chart Container -->
-      <div class="pokemon-stats">
+      <div class="hero-stats">
         <canvas id="statsChart"></canvas>
       </div>
 
-      <p><a href="{{ url_for('index') }}">Back to all Pokémon</a></p>
+      <p><a href="{{ url_for('index') }}">Back to all Heroes</a></p>
     </div>
 
     <!-- Include Chart.js from CDN -->

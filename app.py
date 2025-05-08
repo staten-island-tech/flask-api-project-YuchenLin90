@@ -7,9 +7,9 @@ app = Flask(__name__)
 # Home page route
 @app.route("/")
 def index():
-    response = requests.get("https://pokeapi.co/api/v2/pokemon?limit=150")
-    data = response.json()
+    response = requests.get("https://www.dnd5eapi.co/api/2014/ability-scores/cha")  
     pokemon_list = data['results']
+    print(data)
 
     pokemons = []
     for pokemon in pokemon_list:
