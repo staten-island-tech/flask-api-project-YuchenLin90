@@ -7,28 +7,28 @@ app = Flask(__name__)
 # Home page route
 @app.route("/")
 def index():
-    response = requests.get("https://www.dnd5eapi.co/api/2014/ability-scores/cha")  
-    pokemon_list = data['results']
-    print(data)
+    response = requests.get("http://minecraft-ids.grahamedgecombe.com/items.json")  
+    item_list = data['results']
 
-    pokemons = []
-    for pokemon in pokemon_list:
-        url = pokemon['url']
+
+    items = []
+    for item in item_list:
+        url = item['url']
         parts = url.strip("/").split("/")
         id = parts[-1]
-        image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
+        image_url = f"http://minecraft-ids.grahamedgecombe.com/items.zip{id}.png"
 
-        pokemons.append({
-            'name': pokemon['name'].capitalize(),
+        items.append({
+            'name': item['name'].capitalize(),
             'id': id,
             'image': image_url
         })
 
-    return render_template("index.html", pokemons=pokemons)
+    return render_template("index.html", items=items)
 
 # Pokémon detail page route
-@app.route("/pokemon/<int:id>")
-def pokemon_detail(id):
+@app.route("/item/<int:id>")
+def item_detail(id):
     response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{id}")
     data = response.json()
 
@@ -36,7 +36,7 @@ def pokemon_detail(id):
     height = data.get('height')
     weight = data.get('weight')
     name = data.get('name').capitalize()
-    image_url = f"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{id}.png"
+    image_url = f"http://minecraft-ids.grahamedgecombe.com/items.zip{id}.png"
 
     stat_names = [stat['stat']['name'].capitalize() for stat in data['stats']]
     stat_values = [stat['base_stat'] for stat in data['stats']]
@@ -45,8 +45,8 @@ def pokemon_detail(id):
     stat_names_str = json.dumps(stat_names)
     stat_values_str = json.dumps(stat_values)
 
-    return render_template("pokemon.html",
-        pokemon={
+    return render_template("item.html",
+        item={
             'name': name,
             'id': id,
             'image': image_url,
