@@ -2,22 +2,22 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>HOK Heroes</title>
+    <title>Minecraft item</title>
     <!-- Link to your CSS stylesheet -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   </head>
   <body>
     <div class="container">
-      <h1>HOK Heroes</h1>
+      <h1>Minecraft items</h1>
       <div class="card-container">
         <!-- Loop through each Pokémon and wrap each card in a link -->
-        {% for hero in heroes %}
-        <a href="{{ url_for('hero_detail', id=hero.id) }}" class="card-link">
+        {% for item in items %}
+        <a href="{{ url_for('item_detail', id=item.id) }}" class="card-link">
           <div class="card">
-            <img src="{{ hero.image }}" alt="{{ hero.name }}" />
+            <img src="{{ item.image }}" alt="{{ item.name }}" />
             <div class="card-body">
-              <h5 class="card-title">{{ hero.name }}</h5>
-              <p class="card-text">ID: {{ hero.id }}</p>
+              <h5 class="card-title">{{ item.name }}</h5>
+              <p class="card-text">ID: {{ item.id }}</p>
             </div>
           </div>
         </a>

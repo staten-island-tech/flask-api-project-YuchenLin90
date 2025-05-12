@@ -12,8 +12,7 @@
         <img src="{{ item.image }}" alt="Image of {{ item.name }}" />
         <p><strong>ID:</strong> {{ item.id }}</p>
         <p><strong>Types:</strong> {{ item.types | join(', ') }}</p>
-        <p><strong>Height:</strong> {{ item.height }}</p>
-        <p><strong>Weight:</strong> {{ item.weight }}</p>
+
       </div>
 
       <!-- Chart Container -->
@@ -21,7 +20,7 @@
         <canvas id="statsChart"></canvas>
       </div>
 
-      <p><a href="{{ url_for('index') }}">Back to all item</a></p>
+      <p><a href="{{ url_for('index') }}">Back to all items</a></p>
     </div>
 
     <!-- Include Chart.js from CDN -->
@@ -56,3 +55,4 @@
     </script>
   </body>
 </html>
+

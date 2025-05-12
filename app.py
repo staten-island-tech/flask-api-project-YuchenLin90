@@ -8,7 +8,8 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     response = requests.get("http://minecraft-ids.grahamedgecombe.com/items.json")  
-    item_list = data['results']
+    data = response.json()
+    item_list = data.get('results', [])
 
 
     items = []
@@ -29,7 +30,7 @@ def index():
 # Pokémon detail page route
 @app.route("/item/<int:id>")
 def item_detail(id):
-    response = requests.get(f"https://pokeapi.co/api/v2/pokemon/{id}")
+    response = requests.get(f"https://github.com/SpockBotMC/python-minecraft-data/{id}")
     data = response.json()
 
     types = [t['type']['name'] for t in data['types']]
