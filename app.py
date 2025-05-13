@@ -17,8 +17,7 @@ def index():
         url = item['url']
         parts = url.strip("/").split("/")
         id = parts[-1]
-        image_url = f"http://minecraft-ids.grahamedgecombe.com/items.zip{id}.png"
-
+        image_url = f""
         items.append({
             'name': item['name'].capitalize(),
             'id': id,
@@ -30,7 +29,7 @@ def index():
 # Pokémon detail page route
 @app.route("/item/<int:id>")
 def item_detail(id):
-    response = requests.get(f"https://github.com/SpockBotMC/python-minecraft-data/{id}")
+    response = requests.get(f"http://minecraft-ids.grahamedgecombe.com/items.json")
     data = response.json()
 
     types = [t['type']['name'] for t in data['types']]
