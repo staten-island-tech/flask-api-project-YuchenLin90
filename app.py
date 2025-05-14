@@ -1,25 +1,27 @@
 from flask import Flask, render_template
 import requests
-import json
+
 
 app = Flask(__name__)
 
 # Home page route
 @app.route("/")
 def index():
-    response = requests.get("http://minecraft-ids.grahamedgecombe.com/items.json")  
+    response = requests.get("http://minecraft- ids.grahamedgecombe.com/items.json")  
     data = response.json()
-    item_list = data.get('results', [])
+    print(data)
+
 
 
     items = []
-    for item in item_list:
-        url = item['url']
-        parts = url.strip("/").split("/")
-        id = parts[-1]
-        image_url = f""
+    for item in data:
+        id = item['id']
+        name = item['name'].capitalize()
+
+        image_data = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name}").json()
+        image_url = image_data['item'][0]['image'] if image_data['count'] > 0 else "/static/img/placeholder.png"
         items.append({
-            'name': item['name'].capitalize(),
+            'name': name,
             'id': id,
             'image': image_url
         })
@@ -32,30 +34,25 @@ def item_detail(id):
     response = requests.get(f"http://minecraft-ids.grahamedgecombe.com/items.json")
     data = response.json()
 
-    types = [t['type']['name'] for t in data['types']]
-    height = data.get('height')
-    weight = data.get('weight')
-    name = data.get('name').capitalize()
-    image_url = f"http://minecraft-ids.grahamedgecombe.com/items.zip{id}.png"
+    try:
+        item =next(item for item in data if item['id'] == id)
+    except IndexError:
+        print('404')
+    except StopIteration:
+        print('404')
 
-    stat_names = [stat['stat']['name'].capitalize() for stat in data['stats']]
-    stat_values = [stat['base_stat'] for stat in data['stats']]
+    name = item['name'].capitalized()
+    type_name = item.get('type', 'unknown').capitalize()
+    image_data = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name}").json()
+    image_url = image_data['items'][0]['image'] if image_data['count'] > 0 else "/static/img/placeholder.png"
 
-    # Convert to JS-friendly strings
-    stat_names_str = json.dumps(stat_names)
-    stat_values_str = json.dumps(stat_values)
+    return render_template("item.html", item={
+            'name': name, 
+            'id' : id, 
+            'type' : type_name, 
+            'image' : image_url
 
-    return render_template("item.html",
-        item={
-            'name': name,
-            'id': id,
-            'image': image_url,
-            'types': types,
-            'height': height,
-            'weight': weight
         },
-        stat_names_str=stat_names_str,
-        stat_values_str=stat_values_str
     )
 
 if __name__ == '__main__':
