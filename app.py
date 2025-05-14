@@ -7,7 +7,7 @@ app = Flask(__name__)
 # Home page route
 @app.route("/")
 def index():
-    response = requests.get("http://minecraft- ids.grahamedgecombe.com/items.json")  
+    response = requests.get("http://minecraft-ids.grahamedgecombe.com/items.json")  
     data = response.json()
     print(data)
 
@@ -15,7 +15,7 @@ def index():
 
     items = []
     for item in data:
-        id = item['id']
+        id = item['type']
         name = item['name'].capitalize()
 
         image_data = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name}").json()
@@ -35,7 +35,7 @@ def item_detail(id):
     data = response.json()
 
     try:
-        item =next(item for item in data if item['id'] == id)
+        item =next(item for item in data if item['type'] == id)
     except IndexError:
         print('404')
     except StopIteration:
