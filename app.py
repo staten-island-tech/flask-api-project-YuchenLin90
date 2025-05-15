@@ -2,7 +2,10 @@ from flask import Flask, render_template
 import requests
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates')
+
+response = requests.get("http://minecraft-ids.grahamedgecombe.com/items.json")  
+data = response.json()
 
 # Home page route
 @app.route("/")
@@ -19,12 +22,16 @@ def index():
         name = item['name'].capitalize()
 
         image_data = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name}").json()
-        image_url = image_data['item'][0]['image'] if image_data['count'] > 0 else "/static/img/placeholder.png"
+        image_url = image_data['item'][0].get('image', "/static/img/placeholder.png")
+
+        
+
         items.append({
             'name': name,
             'id': id,
             'image': image_url
         })
+    print("items:", items)
 
     return render_template("index.html", items=items)
 
