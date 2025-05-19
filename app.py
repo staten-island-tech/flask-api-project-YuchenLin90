@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 import requests
 
 
@@ -10,14 +10,26 @@ app = Flask(__name__)
 def index():
     response = requests.get("http://minecraft-ids.grahamedgecombe.com/items.json")
     data = response.json()
-    
+  
     items = []
     for item in data:
         id = item['type']
         name = item['name'].capitalize()
+        
+        
+
 
         image_data = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name}").json()
-        image_url = image_data['item'][0].get('image', "/static/img/placeholder.png")
+        items_list = image_data.get('items', [])
+        if items_list:
+            image_url = items_list[0].get('image', "static/nothing-10-5523.gif")
+        else:
+            image_url = "static/nothing-10-5523.gif"
+
+
+
+
+
 
         items.append({
             'name': name,
@@ -26,44 +38,40 @@ def index():
         })
     print("items:", items)
 
+
     return render_template("index.html", items=items)
-    
-
-
-
-
-
-
-        
 
 
 
 # # Pokémon detail page route
-# @app.route("/item/<int:id>")
-# def item_detail(id):
-#     response = requests.get(f"http://minecraft-ids.grahamedgecombe.com/items.json")
-#     data = response.json()
+@app.route("/item/<int:id>")
+def item_detail(id):
+    response = requests.get(f"http://minecraft-ids.grahamedgecombe.com/items.json")
+    data = response.json()
 
-#     try:
-#         item =next(item for item in data if item['type'] == id)
-#     except IndexError:
-#         print('404')
-#     except StopIteration:
-#         print('404')
 
-#     name = item['name'].capitalized()
-#     type_name = item.get('type', 'unknown').capitalize()
-#     image_data = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name}").json()
-#     image_url = image_data['items'][0]['image'] if image_data['count'] > 0 else "/static/img/placeholder.png"
+    try:
+       item =next(item for item in data if item['type'] == id)
+    except StopIteration:
+       abort(404)
 
-#     return render_template("item.html", item={
-#             'name': name, 
-#             'id' : id, 
-#             'type' : type_name, 
-#             'image' : image_url
 
-#         },
-#     )
+    name = item['name'].capitalize()
+    type_name = item.get('type', 'unknown').capitalize()
+    image_data = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name}").json()
+    image_url = image_data['items'][0]['image'] if image_data['count'] > 0 else "/static/img/placeholder.png"
+
+
+    return render_template("item.html", item={
+           'name': name,
+           'id' : id,
+           'type' : type_name,
+           'image' : image_url
+
+        },
+    )
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
