@@ -57,7 +57,11 @@ def item_detail(id):
 
 
     name = item['name'].capitalize()
-    type_name = item.get('type', 'unknown').capitalize()
+    try:
+        type_name = item.get('type', 'unknown').capitalize()
+    except AttributeError:
+        type_name = str(item['name']).capitalize()
+
     image_data = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name}").json()
     image_url = image_data['items'][0]['image'] if image_data['count'] > 0 else "/static/img/placeholder.png"
 

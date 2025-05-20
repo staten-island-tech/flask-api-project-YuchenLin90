@@ -1,6 +1,8 @@
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    text-align: center;
+    background-color: #006199;
     margin: 0;
     padding: 0;
   }
@@ -35,8 +37,8 @@ body {
   
   /* Individual card styling */
   .card {
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: #3fa2e4;
+    border: 1px solid #034116;
     border-radius: 8px;
     overflow: hidden;
     width: 200px;
@@ -47,13 +49,13 @@ body {
   
   /* Hover effect for cards */
   .card:hover {
-    transform: scale(1.05);
+    transform: scale(1.75);
   }
   
   /* Card image styling */
   .card img {
-    width: 100%;
-    height: auto;
+    width: 80%;
+    height: 40px;
   }
   
   /* Card body styling */
@@ -95,23 +97,3 @@ body {
     margin: 40px auto;
   }
 
-  .image-frame {
-    width: 100px;
-    height: 100px;
-    background: url("static/nothing-10-5523.gif") no-repeat center center;
-    background-size: cover;
-    position: relative;
-    display: inline-block;
-    border: 1px solid #ccc; 
-    border-radius: 8px;     
-    overflow: hidden;
-}
-
-.image-frame img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    position: absolute;
-    top: 0;
-    left: 0;
-}

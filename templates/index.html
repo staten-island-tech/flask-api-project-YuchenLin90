@@ -3,14 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <title>Minecraft item</title>
-    <!-- Link to your CSS stylesheet -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}" />
   </head>
   <body>
     <div class="container">
       <h1>Minecraft items</h1>
       <div class="card-container">
-        <!-- Loop through each Pokémon and wrap each card in a link -->
+
         {% for item in items %}
         <a href="{{ url_for('item_detail', id=item.id) }}" class="card-link">
           <div class="card">
