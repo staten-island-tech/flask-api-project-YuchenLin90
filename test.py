@@ -1,6 +1,6 @@
 import requests
 
-url = "https://www.gamergeeks.net/apps/minecraft/web-developer-tools/css-blocks-and-entities"
+url = "http://yanwittmann.de/api/mcdata/itemorblock.php?identifier=minecraft:acacia_door"
 
 try:
     response = requests.get(url)
@@ -27,3 +27,13 @@ except ValueError:
 # except requests.exceptions.RequestException as e:
 #     image_url = "/static/img/placeholder.png"
 #     print(f"Error fetching image for {name}: {e}")
+
+
+# import requests
+# response = requests.get()
+# data = response.json()
+# big_cards=[]
+# for card in data['dars':]:
+#     if card['cmc' > 5:]:
+#         print(card['name', card['cmc']])
+

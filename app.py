@@ -57,11 +57,12 @@ def item_detail(id):
 
 
     name = item['name'].capitalize()
-    try:
-        type_name = item.get('type', 'unknown').capitalize()
-    except AttributeError:
-        type_name = str(item['name']).capitalize()
 
+    mc_identifier = f"minecraft:{name.lower()}"
+    detail_response = requests.get(f"http://yanwittmann.de/api/mcdata/itemorblock.php?identifier={mc_identifier}")
+
+    detail_data = detail_response.json()
+    describtion = detail_data.get("describtion", "No describtion avaliable.")
     image_data = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name}").json()
     image_url = image_data['items'][0]['image'] if image_data['count'] > 0 else "/static/img/placeholder.png"
 
@@ -69,10 +70,11 @@ def item_detail(id):
     return render_template("item.html", item={
            'name': name,
            'id' : id,
-           'type' : type_name,
+           'describtion' : describtion,
            'image' : image_url
 
         },
+        
     )
 
 if __name__ == '__main__':
