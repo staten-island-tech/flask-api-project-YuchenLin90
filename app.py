@@ -58,7 +58,7 @@ def item_detail(id):
 
     name = item['name'].capitalize()
 
-    mc_identifier = f"minecraft:{name.lower()}"
+    mc_identifier = f"minecraft:{name.replace(' ', '_').lower()}"
     detail_response = requests.get(f"http://yanwittmann.de/api/mcdata/itemorblock.php?identifier={mc_identifier}")
 
     detail_data = detail_response.json()
