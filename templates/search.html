@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Minecraft Search</title>
+    <style>
+        .card {
+            max-width: 200px;
+            margin: 20px auto;
+            text-align: center;
+            background: #f2f2f2;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        .card img {
+            max-width: 64px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search Minecraft Item</h1>
+    <form method="GET" action="/">
+        <input type="text" name="search" placeholder="Enter item name..." value="{{ search }}">
+        <button type="submit">Search</button>
+    </form>
+
+    {% if items %}
+        <div class="card">
+            <img src="{{ items[0].image }}" alt="{{ items[0].name }}">
+            <h3>{{ items[0].name }}</h3>
+        </div>
+    {% elif search %}
+        <p>No item found for "{{ search }}".</p>
+    {% endif %}
+</body>
+</html>
