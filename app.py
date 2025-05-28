@@ -68,6 +68,7 @@ def index():
 # # Pokémon detail page route
 @app.route("/item/<int:id>")
 def item_detail(id):
+
     response = requests.get(f"http://minecraft-ids.grahamedgecombe.com/items.json")
     data = response.json()
 
@@ -80,10 +81,10 @@ def item_detail(id):
 
     name = item['name'].capitalize()
     identifier = item['text_type']  
-    mc_identifier = f"minecraft:{identifier}"
 
 
-    detail_response = requests.get(f"http://yanwittmann.de/api/mcdata/itemorblock.php={mc_identifier}")
+
+    detail_response = requests.get(f"http://yanwittmann.de/api/mcdata/itemorblock")
     try:
         detail_data = detail_response.json()
         description = detail_data.get("description", "No description avaliable.")
@@ -104,6 +105,9 @@ def item_detail(id):
         },
         
     )
+
+
+
 @app.route('/search')
 def search():
     find = requests.args.get('search', '').lower()
