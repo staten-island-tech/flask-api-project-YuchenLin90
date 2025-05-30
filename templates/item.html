@@ -2,26 +2,19 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>{{ item.name }} Details</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}" />
+    <title>{{ item.name_display }} Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   </head>
   <body>
     <div class="container">
-      <h1>{{ item.name }} Details</h1>
+      <h1>{{ item.name_display }} Details</h1>
       <div class="item-detail">
-        <img src="{{ item.image }}" alt="Image of {{ item.name }}" />
+        <img src="{{ item.image }}" alt="Image of {{ item.name_display }}" />
         <p><strong>ID:</strong> {{ item.id }}</p>
-        <p><strong>Description:</strong> {{item.description}}</p>
-
-
+        <p><strong>Description:</strong> {{ item.description }}</p>
       </div>
-
-      </div>
-
-      <p><a href="{{ url_for('index') }}">Back to all items</a></p>
     </div>
 
-
+    <p><a href="{{ url_for('index') }}">Back to all items</a></p>
   </body>
 </html>
-

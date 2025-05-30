@@ -1,99 +1,88 @@
-
 body {
-    font-family: 'Comic Sans MS', cursive, sans-serif;
-    text-align: center;
-    background-color: #006199;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Container styling */
-  .container {
-    width: 90%;
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-  }
-  
-  /* Title styling */
-  h1 {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  /* Card container styling */
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-  }
-  
-  /* Remove link default styles */
-  .card-link {
-    text-decoration: none;
-    color: inherit;
-  }
-  
-  /* Individual card styling */
-  .card {
-    background-color: #3fa2e4;
-    border: 1px solid #034116;
-    border-radius: 8px;
-    overflow: hidden;
-    width: 200px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
-  }
-  
-  /* Hover effect for cards */
-  .card:hover {
-    transform: scale(1.75);
-  }
-  
-  /* Card image styling */
-  .card img {
-    width: 80%;
-    height: 40px;
-  }
-  
-  /* Card body styling */
-  .card-body {
-    padding: 15px;
-  }
-  
-  /* Card title styling */
-  .card-title {
-    font-size: 1.2em;
-    margin: 0;
-  }
-  
-  /* Card text styling */
-  .card-text {
-    color: #555;
-    margin-top: 5px;
-  }
-  
-  /* Pokémon detail page styling */
-  .item-detail {
-    text-align: center;
-  }
-  
-  .item-detail img {
-    width: 200px;
-    height: auto;
-    margin-bottom: 20px;
-  }
-  
-  .item-detail p {
-    font-size: 1.1em;
-  }
-  
-  /* Chart container styling */
-  .item-stats {
-    width: 100%;
-    max-width: 600px;
-    margin: 40px auto;
-  }
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  background-color: #f0f4f8;
+  margin: 0;
+  padding: 0;
+}
 
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #007acc;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.card img {
+  width: 50%;
+  height: 40px;
+}
+
+.card-body {
+  padding: 15px;
+}
+
+.card-title {
+  font-size: 1.2em;
+  margin: 0;
+  color: #007acc;
+}
+
+.card-text {
+  color: #555;
+  margin-top: 5px;
+}
+
+.item-detail {
+  text-align: center;
+}
+
+.item-detail img {
+  width: 200px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.item-detail p {
+  font-size: 1.1em;
+  color: #333;
+}
+
+.item-stats {
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto;
+}
