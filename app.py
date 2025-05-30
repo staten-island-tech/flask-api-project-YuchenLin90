@@ -8,16 +8,18 @@ app = Flask(__name__)
 @app.route("/")
 def index():
     search = request.args.get("search", "").strip().lower()
-    response = requests.get("http://minecraft-ids.grahamedgecombe.com/items.json")
+    response = requests.get("http://yanwittmann.de/api/mcdata/item.php")
     data = response.json()
+
+    item_data = data.get("items", [])
   
     items = []
-    for item in data:
-        item_id = item['type']
-        name_raw = item['name']
+    for item in item_data:
+
+        name_raw = item.get("name")
         name_display = name_raw.replace("_", " ").title()
 
-        if search and search not in str(item_id) and search not in name_raw.lower():
+        if search and search not in name_raw.lower():
             continue
 
         image_url = None
@@ -37,7 +39,6 @@ def index():
         items.append({
             'name_display': name_display,
             'name_raw' : name_raw,
-            'id': item_id,
             'image': image_url
         })
    
@@ -51,17 +52,16 @@ def index():
 @app.route("/item/<name>")
 def item_detail(name):
 
-    response = requests.get(f"http://minecraft-ids.grahamedgecombe.com/items.json")
-    data = response.json()
 
 
-    item = next((item for item in data if item['name'].lower() == name.lower()), None)
-    if not item:
-        abort(404, description="Item not found.")
 
-    name_raw = item['name']
+    # item = next((item for item in data if item['name'].lower() == name.lower()), None)
+    # if not item:
+    #     abort(404, description="Item not found.")
+
+    name_raw = name.lower()
     name_display = name_raw.replace("_", " ").title()
-    item_id = item['type']
+ 
 
     try:
         detail_response = requests.get(f"http://yanwittmann.de/api/mcdata/itemorblock.php?name={name_raw}")
@@ -87,7 +87,7 @@ def item_detail(name):
     return render_template("item.html", item={
         'name_display': name_display,
         'name_raw': name_raw,
-        'id': item_id,
+
         'image': image_url,
         'description': description
             })
@@ -101,5 +101,4 @@ def item_detail(name):
 
 if __name__ == '__main__':
     app.run(debug=True)
-
 
