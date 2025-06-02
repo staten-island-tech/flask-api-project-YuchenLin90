@@ -1,4 +1,4 @@
-from flask import Flask, render_template, abort, request
+from flask import Flask, render_template, request
 import requests
 
 
@@ -60,11 +60,11 @@ def item_detail(name):
         response.raise_for_status()
         data = response.json()
     except requests.RequestException :
-        abort(404)
+        print("Error, cannot connect")
         
     items = data.get("items", [])
     if not items:
-        abort(404)
+        print("Error, no item")
 
     item = items[0]
 
