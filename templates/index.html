@@ -39,8 +39,7 @@
         {% for item in items %}
         <a href="{{ url_for('item_detail', name=item.name_raw) }}" class="card-link">
           <div class="card">
-            <img src="{{ item.image }}" alt="{{ item.name_display }}" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-            <p hidden>No image found</p>
+            <img src="{{ item.image }}" alt="{{ item.name_display }}">
             <div class="card-body">
               <h5 class="card-title">{{ item.name_display }}</h5>
               
