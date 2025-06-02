@@ -22,16 +22,9 @@ def index():
         if search and search not in name_raw.lower():
             continue
 
-        image_url = None
-        try:
-            first_api_response = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name_raw}").json()
-            items_list=first_api_response.get("items", [])
-            if items_list and items_list[0].get("image"):
-                image_url = items_list[0]["image"]
-        except Exception:
-            pass
+        image_url = item.get('image')
         if not image_url:
-            image_url = f"https://www.minecraftitemids.com/item/32/{name_raw}.png"
+            image_url =  f"https://www.minecraftitemids.com/item/32/{name_raw}.png"
         
         
 
@@ -59,40 +52,37 @@ def item_detail(name):
     # if not item:
     #     abort(404, description="Item not found.")
 
-    name_raw = name.lower()
-    name_display = name_raw.replace("_", " ").title()
+    name = name.strip().lower()
  
 
     try:
-        detail_response = requests.get(f"http://yanwittmann.de/api/mcdata/itemorblock.php?name={name_raw}")
-        detail_response.raise_for_status()
-        detail_data = detail_response.json()
-        description = detail_data.get("description", "No description available.")
-    except Exception :
-        print(f"Failed to get describtion for {name_raw}")
-        description = "No description available."
+        response = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name}")
+        response.raise_for_status()
+        data = response.json()
+    except requests.RequestException :
+        abort(404)
+        
+    items = data.get("items", [])
+    if not items:
+        abort(404)
 
-    image_url = None
-    try:
-        first_api_response = requests.get(f"http://yanwittmann.de/api/mcdata/item.php?name={name_raw}").json()
-        items_list = first_api_response.get("items", [])
-        if items_list and items_list[0].get("image"):
-            image_url = items_list[0]["image"]
-    except Exception:
-        pass
+    item = items[0]
+
+    name_display = item.get("name", "").replace("_", " ").title()
+    description = item.get("description", "no description available")
+
+    image_url = item.get("image")
     if not image_url:
-        image_url = f"https://www.minecraftitemids.com/item/32/{name_raw}.png"
+        image_url = f"https://www.minecraftitemids.com/item/32/{name}.png"
 
 
-    return render_template("item.html", item={
+    return render_template("detail.html", item={
         'name_display': name_display,
-        'name_raw': name_raw,
+   
 
         'image': image_url,
         'description': description
             })
-
-
 
 
 
