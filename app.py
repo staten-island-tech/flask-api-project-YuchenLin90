@@ -47,11 +47,6 @@ def item_detail(name):
 
 
 
-
-    # item = next((item for item in data if item['name'].lower() == name.lower()), None)
-    # if not item:
-    #     abort(404, description="Item not found.")
-
     name = name.strip().lower()
  
 
